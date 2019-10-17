@@ -105,12 +105,12 @@ public class ClusteredServiceImpl implements ClusteredService {
     // Updated service state
     int value = serviceCounter.incrementAndGet();
 
-    if (TIMER_1_COMMAND.equalsIgnoreCase(message)) {
-      scheduleTimer(1, cluster.time() + TIMER_1_INTERVAL);
-    }
-    if (TIMER_2_COMMAND.equalsIgnoreCase(message)) {
-      scheduleTimer(2, cluster.time() + TIMER_2_INTERVAL);
-    }
+    //    if (TIMER_1_COMMAND.equalsIgnoreCase(message)) {
+    //      scheduleTimer(1, cluster.time() + TIMER_1_INTERVAL);
+    //    }
+    //    if (TIMER_2_COMMAND.equalsIgnoreCase(message)) {
+    //      scheduleTimer(2, cluster.time() + TIMER_2_INTERVAL);
+    //    }
 
     if (SNAPSHOT_COMMAND.equalsIgnoreCase(message)) {
       AtomicCounter controlToggle = ClusterControl.findControlToggle(countersManager);
@@ -138,12 +138,12 @@ public class ClusteredServiceImpl implements ClusteredService {
         cluster.memberId(),
         correlationId);
 
-    if (correlationId == 1) {
-      scheduleTimer(correlationId, cluster.time() + TIMER_1_INTERVAL);
-    }
-    if (correlationId == 2) {
-      scheduleTimer(correlationId, cluster.time() + TIMER_2_INTERVAL);
-    }
+    //    if (correlationId == 1) {
+    //      scheduleTimer(correlationId, cluster.time() + TIMER_1_INTERVAL);
+    //    }
+    //    if (correlationId == 2) {
+    //      scheduleTimer(correlationId, cluster.time() + TIMER_2_INTERVAL);
+    //    }
   }
 
   @Override
@@ -245,10 +245,10 @@ public class ClusteredServiceImpl implements ClusteredService {
     }
   }
 
-  private void scheduleTimer(long correlationId, long deadlineMs) {
-    boolean scheduleTimer = cluster.scheduleTimer(correlationId, deadlineMs);
-    if (scheduleTimer) {
-      logger.info("Timer ({}) scheduled at {}", correlationId, new Date(deadlineMs));
-    }
-  }
+  //  private void scheduleTimer(long correlationId, long deadlineMs) {
+  //    boolean scheduleTimer = cluster.scheduleTimer(correlationId, deadlineMs);
+  //    if (scheduleTimer) {
+  //      logger.info("Timer ({}) scheduled at {}", correlationId, new Date(deadlineMs));
+  //    }
+  //  }
 }

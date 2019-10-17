@@ -32,9 +32,7 @@ public class InteractiveClient {
         byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
         UnsafeBuffer buffer = new UnsafeBuffer(bytes);
         long l = client.offer(buffer, 0, bytes.length);
-        if (l > 0) {
-          logger.info("Client: REQUEST '{}' sent, result={}", str, l);
-        }
+        logger.info("Client: REQUEST '{}' sent, result={}", str, l);
       };
 
   /**
@@ -93,7 +91,8 @@ public class InteractiveClient {
                 .terminationHook(() -> logger.info("TerminationHook called on MediaDriver "))
                 .terminationValidator(new DefaultAllowTerminationValidator())
                 .threadingMode(ThreadingMode.SHARED)
-                .warnIfDirectoryExists(true)
+                //                .warnIfDirectoryExists(true)
+                .dirDeleteOnStart(true)
                 .dirDeleteOnStart(true)
                 .aeronDirectoryName(clientDirName));
     client =
@@ -104,5 +103,6 @@ public class InteractiveClient {
                 .aeronDirectoryName(clientDirName)
                 .ingressChannel("aeron:udp"));
     System.out.println("Client started.");
+    logger.debug("client: {}", client.context().clusterMemberEndpoints());
   }
 }
