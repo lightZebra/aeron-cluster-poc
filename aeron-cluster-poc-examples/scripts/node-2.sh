@@ -25,9 +25,4 @@ java \
 -Dio.scalecube.acpoc.cleanStart=false \
 -Dio.scalecube.acpoc.cleanShutdown=false \
 -Dio.scalecube.acpoc.snapshotPeriodSecs=99999 \
--Daeron.cluster.session.timeout=30000000000 \
--Daeron.cluster.leader.heartbeat.timeout=50000000000 \
--Daeron.client.liveness.timeout=200000000000 \
--Daeron.publication.unblock.timeout=300000000000 \
--Daeron.driver.timeout=200000000000 \
   ${JVM_OPTS} io.scalecube.acpoc.ClusteredServiceRunner

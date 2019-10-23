@@ -60,7 +60,7 @@ public class ClusteredServiceRunner {
             .errorHandler(ex -> logger.error("Exception occurred at Archive: ", ex))
             .maxCatalogEntries(Configurations.MAX_CATALOG_ENTRIES)
             .aeronDirectoryName(aeronDirectoryName)
-            .archiveDir(new File(nodeDirName, "temp"))
+            .archiveDir(new File(nodeDirName, "temp1"))
             .controlChannel(aeronArchiveContext.controlRequestChannel())
             .controlStreamId(aeronArchiveContext.controlRequestStreamId())
             .localControlStreamId(aeronArchiveContext.controlRequestStreamId())
@@ -72,7 +72,7 @@ public class ClusteredServiceRunner {
             .errorHandler(ex -> logger.error("Exception occurred at ConsensusModule: ", ex))
             .terminationHook(() -> logger.info("TerminationHook called on ConsensusModule"))
             .aeronDirectoryName(aeronDirectoryName)
-            .clusterDir(new File(nodeDirName, "temp"))
+            .clusterDir(new File(nodeDirName, "temp1"))
             .archiveContext(aeronArchiveContext.clone());
 
     ClusteredMediaDriver clusteredMediaDriver =
@@ -86,7 +86,7 @@ public class ClusteredServiceRunner {
             .errorHandler(ex -> logger.error("Exception occurred: " + ex, ex))
             .aeronDirectoryName(aeronDirectoryName)
             .archiveContext(aeronArchiveContext.clone())
-            .clusterDir(new File(nodeDirName, "temp"))
+            .clusterDir(new File(nodeDirName, "temp1"))
             .clusteredService(clusteredService);
 
     ClusteredServiceContainer clusteredServiceContainer =

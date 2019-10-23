@@ -75,9 +75,9 @@ public class InteractiveClient {
   private static Callable shutdownHook() {
     return () -> {
       System.out.println("Shutting down");
-      receiver.dispose();
       CloseHelper.close(client);
       CloseHelper.close(clientMediaDriver);
+      receiver.dispose();
       return null;
     };
   }
@@ -91,8 +91,8 @@ public class InteractiveClient {
                 .terminationHook(() -> logger.info("TerminationHook called on MediaDriver "))
                 .terminationValidator(new DefaultAllowTerminationValidator())
                 .threadingMode(ThreadingMode.SHARED)
-                //                .warnIfDirectoryExists(true)
-                .dirDeleteOnStart(true)
+                .warnIfDirectoryExists(true)
+                //                .dirDeleteOnStart(true)
                 .dirDeleteOnStart(true)
                 .aeronDirectoryName(clientDirName));
     client =
