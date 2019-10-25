@@ -1,0 +1,56 @@
+version: '3.7'
+services:
+  node0:
+    image: aeron-poc
+    ports:
+      - "20110:20110"
+      - "20120:20120"
+      - "20130:20130"
+      - "20140:20140"
+      - "20150:20150"
+      - "8010:8010"
+    environment:
+      - NUMBER=0
+    networks:
+      app_net:
+        ipv4_address: 10.5.0.10
+
+  node1:
+    image: aeron-poc
+    ports:
+      - "20111:20111"
+      - "20121:20121"
+      - "20131:20131"
+      - "20141:20141"
+      - "20151:20151"
+      - "8011:8011"
+    environment:
+      - NUMBER=1
+    networks:
+      app_net:
+        ipv4_address: 10.5.0.4
+
+  node2:
+    image: aeron-poc
+    ports:
+      - "20112:20112"
+      - "20122:20122"
+      - "20132:20132"
+      - "20142:20142"
+      - "20152:20152"
+      - "8012:8012"
+    environment:
+      - NUMBER=2
+    networks:
+      app_net:
+        ipv4_address: 10.5.0.9
+
+
+
+networks:
+  app_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.5.0.0/16
+#          gateway: 10.5.0.1

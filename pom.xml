@@ -22,7 +22,7 @@
   </scm>
 
   <properties>
-    <aeron.version>1.22.1</aeron.version>
+    <aeron.version>1.23.0-SNAPSHOT</aeron.version>
     <sbe-all.version>1.13.2</sbe-all.version>
     <agrona.version>1.0.7</agrona.version>
 
