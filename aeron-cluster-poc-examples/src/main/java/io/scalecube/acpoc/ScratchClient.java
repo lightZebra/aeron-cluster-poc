@@ -10,7 +10,8 @@ public class ScratchClient {
 
   public static void main(String[] args) throws Exception {
     final DatagramChannel datagramChannel = DatagramChannel.open();
-//    datagramChannel.connect(new InetSocketAddress("om2-savchuk", 8143));
+    datagramChannel.connect(new InetSocketAddress("om2-savchuk", 8143));
+
 
     final ByteBuffer buffer = ByteBuffer.allocate(48);
     final Scanner scanner = new Scanner(System.in);
@@ -20,8 +21,13 @@ public class ScratchClient {
         buffer.clear();
         buffer.putInt(scanner.nextInt());
         buffer.flip();
-        datagramChannel.send(buffer, new InetSocketAddress("om2-savchuk", 8143));
+        try {
+          datagramChannel.send(buffer, new InetSocketAddress("om2-savchuk", 8143));
 //        datagramChannel.write(buffer);
+        } catch (IllegalArgumentException e) {
+          datagramChannel.disconnect()
+              .connect(new InetSocketAddress("om2-savchuk", 8143));
+        }
 
       } catch (Exception e) {
         e.printStackTrace();

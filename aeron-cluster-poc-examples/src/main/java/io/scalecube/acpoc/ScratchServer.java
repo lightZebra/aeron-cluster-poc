@@ -19,9 +19,9 @@ public class ScratchServer {
     final ByteBuffer buffer = ByteBuffer.allocate(1024);
     while (true) {
       buffer.clear();
-      buffer.flip();
 
       final InetSocketAddress address = (InetSocketAddress) datagramChannel.receive(buffer);
+      buffer.flip();
 
       final byte[] bytes = new byte[buffer.remaining()];
       buffer.get(bytes, 0, bytes.length);

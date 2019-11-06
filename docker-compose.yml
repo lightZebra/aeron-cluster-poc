@@ -15,7 +15,7 @@ services:
       - NUMBER=0
     networks:
       app_net:
-        ipv4_address: 10.5.0.32
+        ipv4_address: 10.5.0.31
 
   node1:
     build: .
@@ -49,7 +49,7 @@ services:
       - NUMBER=2
     networks:
       app_net:
-        ipv4_address: 10.5.0.52
+        ipv4_address: 10.5.0.51
 
 
 networks:
