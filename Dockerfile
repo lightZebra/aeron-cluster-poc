@@ -4,7 +4,7 @@ RUN apt-get update
 RUN apt-get -y install vim
 
 COPY aeron-cluster-poc-examples/target /app/target
-COPY aeron-cluster-poc-examples/scripts /app/scripts
+COPY aeron-cluster-poc-examples/scripts/docker /app/scripts
 
 WORKDIR /app
 
