@@ -37,11 +37,11 @@ public class ClusteredServiceRunner {
    * @param args arguments
    */
   public static void main(String[] args) {
-    System.setProperty(EventConfiguration.ENABLED_CLUSTER_EVENT_CODES_PROP_NAME, "all");
-    System.setProperty(EventConfiguration.ENABLED_ARCHIVE_EVENT_CODES_PROP_NAME, "all");
-    System.setProperty(EventConfiguration.ENABLED_EVENT_CODES_PROP_NAME, "all");
+//    System.setProperty(EventConfiguration.ENABLED_CLUSTER_EVENT_CODES_PROP_NAME, "all");
+//    System.setProperty(EventConfiguration.ENABLED_ARCHIVE_EVENT_CODES_PROP_NAME, "all");
+//    System.setProperty(EventConfiguration.ENABLED_EVENT_CODES_PROP_NAME, "all");
 //    System.setProperty(EventConfiguration.ENABLED_EVENT_CODES_PROP_NAME, "admin");
-    EventLogAgent.agentmain("", ByteBuddyAgent.install());
+//    EventLogAgent.agentmain("", ByteBuddyAgent.install());
 
     String clusterMemberId = Integer.toHexString(Configuration.clusterMemberId());
     String nodeId = "node-" + clusterMemberId + "-" + Utils.instanceId();
@@ -49,7 +49,7 @@ public class ClusteredServiceRunner {
 
     System.out.println("Cluster node directory: " + nodeDirName);
 
-    String aeronDirectoryName = Paths.get(nodeDirName, "temp").toString();
+    String aeronDirectoryName = Paths.get(nodeDirName, "media").toString();
 
     AeronArchive.Context aeronArchiveContext =
         new AeronArchive.Context().aeronDirectoryName(aeronDirectoryName);
@@ -70,7 +70,7 @@ public class ClusteredServiceRunner {
             .errorHandler(ex -> logger.error("Exception occurred at Archive: ", ex))
             .maxCatalogEntries(Configurations.MAX_CATALOG_ENTRIES)
             .aeronDirectoryName(aeronDirectoryName)
-            .archiveDir(new File(nodeDirName, "temp1"))
+            .archiveDir(new File(nodeDirName, "archive"))
             .controlChannel(aeronArchiveContext.controlRequestChannel())
             .controlStreamId(aeronArchiveContext.controlRequestStreamId())
             .localControlStreamId(aeronArchiveContext.controlRequestStreamId())
@@ -82,7 +82,7 @@ public class ClusteredServiceRunner {
             .errorHandler(ex -> logger.error("Exception occurred at ConsensusModule: ", ex))
             .terminationHook(() -> logger.info("TerminationHook called on ConsensusModule"))
             .aeronDirectoryName(aeronDirectoryName)
-            .clusterDir(new File(nodeDirName, "temp1"))
+            .clusterDir(new File(nodeDirName, "consensus"))
             .archiveContext(aeronArchiveContext.clone());
 
     ClusteredMediaDriver clusteredMediaDriver =
@@ -96,7 +96,7 @@ public class ClusteredServiceRunner {
             .errorHandler(ex -> logger.error("Exception occurred: " + ex, ex))
             .aeronDirectoryName(aeronDirectoryName)
             .archiveContext(aeronArchiveContext.clone())
-            .clusterDir(new File(nodeDirName, "temp1"))
+            .clusterDir(new File(nodeDirName, "service"))
             .clusteredService(clusteredService);
 
     ClusteredServiceContainer clusteredServiceContainer =
